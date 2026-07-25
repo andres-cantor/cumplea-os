@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 
+const basePath = import.meta.env.BASE_URL;
+
 class BootScene extends Phaser.Scene {
   constructor() {
     super('BootScene');
@@ -11,9 +13,9 @@ class BootScene extends Phaser.Scene {
     });
 
     for (let i = 1; i <= 16; i += 1) {
-      this.load.image(`photo-${i}`, `photos/photo-${i}.jpg`);
+      this.load.image(`photo-${i}`, `${basePath}photos/photo-${i}.jpg`);
     }
-    this.load.image('photo-frame', 'photos/photo-frame.png');
+    this.load.image('photo-frame', `${basePath}photos/photo-frame.png`);
   }
 
   create() {

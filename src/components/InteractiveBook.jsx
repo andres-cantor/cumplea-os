@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 
+const basePath = import.meta.env.BASE_URL;
+
 const pages = [
   {
     type: 'cover',
@@ -10,97 +12,97 @@ const pages = [
     type: 'photo',
     title: 'Nuestro primer abrazo 💞',
     text: 'Desde el primer abrazo supe que quería dibujar mil historias a tu lado. Cada día contigo ha sido un regalo que atesoro en mi memoria.',
-    photo: '/photos/photo-1.jpg',
+    photo: 'photo-1.jpg',
   },
   {
     type: 'photo',
     title: 'Tu sonrisa ilumina mi mundo 🌹',
     text: 'Tu sonrisa es la luz que convierte cada día en algo precioso. Cuando ríes, siento que todo mejora y que el mundo brilla un poco más.',
-    photo: '/photos/photo-2.jpg',
+    photo: 'photo-2.jpg',
   },
   {
     type: 'photo',
     title: 'Magia en cada recuerdo ✨',
     text: 'Cada recuerdo contigo se vuelve un sueño que quiero repetir siempre. Guardaré estos instantes como si fueran tesoros que nos unen para siempre.',
-    photo: '/photos/photo-3.jpg',
+    photo: 'photo-3.jpg',
   },
   {
     type: 'photo',
     title: 'Risas compartidas que encienden mi alma 🎁',
     text: 'Las risas que compartimos son mi música favorita. Gracias por esas carcajadas que hacen que mis días sean más ligeros y alegres.',
-    photo: '/photos/photo-4.jpg',
+    photo: 'photo-4.jpg',
   },
   {
     type: 'photo',
     title: 'Abrazos que curan el alma 💌',
     text: 'Tus abrazos son mi refugio y mi fuerza. En tus brazos encuentro calma, valor y el calor de un hogar al que siempre quiero volver.',
-    photo: '/photos/photo-5.jpg',
+    photo: 'photo-5.jpg',
   },
   {
     type: 'photo',
     title: 'Días de aventura en tus brazos 🌸',
     text: 'Contigo cada momento se vuelve una aventura inolvidable. Gracias por descubrir el mundo a mi lado y por convertir lo cotidiano en extraordinario.',
-    photo: '/photos/photo-6.jpg',
+    photo: 'photo-6.jpg',
   },
   {
     type: 'photo',
     title: 'Ternura infinita que me enamora 💘',
     text: 'Tu ternura hace que mi corazón sonría sin razón. Eres delicadeza y fuerza a la vez, y cada gesto tuyo me enamora más.',
-    photo: '/photos/photo-7.jpg',
+    photo: 'photo-7.jpg',
   },
   {
     type: 'photo',
     title: 'Te busco en cada lugar porque eres mi hogar 🥀',
     text: 'En cada rincón solamente quiero encontrarte a ti. Tu compañía transforma los lugares y los llena de sentido y calor.',
-    photo: '/photos/photo-8.jpg',
+    photo: 'photo-8.jpg',
   },
   {
     type: 'photo',
     title: 'Mi compañera de vida y mi sueño 💒',
     text: 'Gracias por ser mi compañía, mi amiga y mi amor. A tu lado aprendo, río y crezco; gracias por sostenerme siempre.',
-    photo: '/photos/photo-9.jpg',
+    photo: 'photo-9.jpg',
   },
   {
     type: 'photo',
     title: 'Recuerdos que abrazan nuestro destino 💝',
     text: 'Estas fotos guardan la calidez de cada instante juntos. Cada imagen es un abrazo que revive momentos llenos de amor.',
-    photo: '/photos/photo-10.jpg',
+    photo: 'photo-10.jpg',
   },
   {
     type: 'photo',
     title: 'Dulce melodía de tu voz y tus gestos 🎶',
     text: 'Tu voz y tu presencia son la melodía que adoro. Escucharte es encontrar la calma y la canción más bonita de mi vida.',
-    photo: '/photos/photo-11.jpg',
+    photo: 'photo-11.jpg',
   },
   {
     type: 'photo',
     title: 'Unidos por siempre en un amor sin fin 💞',
     text: 'Siento que este cuento no tendría fin si lo escribimos juntas. Quiero seguir sumando capítulos a nuestro amor día tras día.',
-    photo: '/photos/photo-12.jpg',
+    photo: 'photo-12.jpg',
   },
   {
     type: 'photo',
     title: 'Corazones enlazados por siempre 🌺',
     text: 'Mi corazón late más fuerte cada vez que pienso en ti. Eres mi compañera, mi refugio y la mejor razón para sonreír.',
-    photo: '/photos/photo-13.jpg',
+    photo: 'photo-13.jpg',
   },
   {
     type: 'photo',
     title: 'Sueños compartidos que crean nuestro cielo 🌟',
     text: 'Tus sueños son los míos, y prometo cuidarlos siempre. Juntos construiremos lo que imaginamos y mucho más.',
-    photo: '/photos/photo-14.jpg',
+    photo: 'photo-14.jpg',
   },
   {
     type: 'photo',
     title: 'Nuestro rincón especial donde nace la magia 🎀',
     text: 'En nuestros momentos juntos se esconde la magia más real. Gracias por convertir la vida en un lugar tierno y verdadero.',
-    photo: '/photos/photo-15.jpg',
+    photo: 'photo-15.jpg',
   },
   {
     type: 'photo',
     title: 'Para ti, mi reina eterna 👑',
     text: 'Cada vez que te miro confirmo que eres mi mayor bendición. Feliz cumpleaños, mi reina; eres mi presente y mi futuro.',
-    photo: '/photos/photo-16.jpg',
+    photo: 'photo-16.jpg',
   },
   {
     type: 'final',
@@ -117,7 +119,7 @@ const InteractiveBook = () => {
   const [musicStarted, setMusicStarted] = useState(false);
   const [playerReady, setPlayerReady] = useState(false);
   const [player, setPlayer] = useState(null);
-  const [coverSrc, setCoverSrc] = useState('/photos/book-cover.png');
+  const [coverSrc, setCoverSrc] = useState(`${basePath}photos/book-cover.png`);
   const page = pages[pageIndex];
   const audioCtxRef = useRef(null);
   const musicIframeRef = useRef(null);
@@ -249,7 +251,7 @@ const InteractiveBook = () => {
                 className="book-cover__image"
                 src={coverSrc}
                 alt="Portada"
-                onError={() => setCoverSrc('/photos/photo-1.jpg')}
+                onError={() => setCoverSrc(`${basePath}photos/photo-1.jpg`)}
               />
               <div className="book-cover__label">Un cuento de princesas</div>
             </div>
@@ -266,7 +268,7 @@ const InteractiveBook = () => {
                 <div className="book-page__final-art">
                   <img
                     className="book-page__rabbit"
-                    src="/photos/final-rabbit.png"
+                    src={`${basePath}photos/final-rabbit.png`}
                     alt="Conejito de cumpleaños"
                     onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/photos/rabbit.svg'; }}
                   />
@@ -274,7 +276,7 @@ const InteractiveBook = () => {
                 </div>
               ) : page.photo ? (
                 <div className="book-page__photo-wrap">
-                  <img className="book-page__photo" src={page.photo} alt="Recuerdo" />
+                  <img className="book-page__photo" src={`${basePath}photos/${page.photo}`} alt="Recuerdo" />
                 </div>
               ) : (
                 <div className="book-page__decor"></div>
